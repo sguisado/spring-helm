@@ -3,7 +3,7 @@ FROM maven:3-openjdk-11
 WORKDIR /root
 COPY . ./
 RUN mvn clean package
-RUN mv $(find /root/application/target/ -type f -name '*.jar' -a ! -name '*-javadoc.jar' -a ! -name '*-sources.jar' -a ! -name '*-tests.jar') /root/app.jar
+RUN mv $(find /root/target/ -type f -name '*.jar' -a ! -name '*-javadoc.jar' -a ! -name '*-sources.jar' -a ! -name '*-tests.jar') /root/app.jar
 
 FROM openjdk:11-alpine
 WORKDIR /var/app
