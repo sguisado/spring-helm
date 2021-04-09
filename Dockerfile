@@ -2,8 +2,6 @@ FROM maven:3-openjdk-11
 
 WORKDIR /root
 COPY . ./
-RUN rm -rf /root/.m2
-RUN mv ./docker-resources/.m2 /root/
 RUN mvn clean package
 RUN mv $(find /root/application/target/ -type f -name '*.jar' -a ! -name '*-javadoc.jar' -a ! -name '*-sources.jar' -a ! -name '*-tests.jar') /root/app.jar
 
