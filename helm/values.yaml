@@ -38,7 +38,7 @@ securityContext: {}
 
 service:
   name: spring-helm
-  type: ClusterIP
+  type: NodePort
   externalPort: 8080
   internalPort: 8080
   annotations:
