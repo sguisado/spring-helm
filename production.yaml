@@ -17,5 +17,5 @@ spec:
     helm:
       values: |
         image:
-          tag: {{.IMAGE_TAG}}
+          tag: "{{.IMAGE_TAG}}"
       version: v3
