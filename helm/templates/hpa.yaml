@@ -4,10 +4,10 @@
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ template "fullname" . }}
+  name: {{ template "helm.fullname" . }}
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-    app: {{ template "fullname" . }}
+    app: {{ template "helm.fullname" . }}
 spec:
   minReplicas: 2
   maxReplicas: 6
@@ -19,6 +19,6 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
   {{- end }}
-    name: {{ template "fullname" . }}
+    name: {{ template "helm.fullname" . }}
   targetCPUUtilizationPercentage: 80
   {{- end }}

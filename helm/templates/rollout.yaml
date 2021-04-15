@@ -4,18 +4,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: {{ template "fullname" . }}
+  name: {{ template "helm.fullname" . }}
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-    app: {{ template "fullname" . }}
+    app: {{ template "helm.fullname" . }}
 spec:
   selector:
     matchLabels:
-      app: {{ template "fullname" . }}
+      app: {{ template "helm.fullname" . }}
   template:
     metadata:
       labels:
-        app: {{ template "fullname" . }}
+        app: {{ template "helm.fullname" . }}
         istio-injection: enabled
     spec:
       containers:
@@ -28,12 +28,12 @@ spec:
   {{ toYaml .Values.resources | indent 12 }}
 strategy:
   canary:
-    canaryService: {{ template "fullname" . }}-canary
-    stableService: {{ template "fullname" . }}
+    canaryService: {{ template "helm.fullname" . }}-canary
+    stableService: {{ template "helm.fullname" . }}
     trafficRouting:
       istio:
         virtualService:
-          name: {{ template "fullname" . }}
+          name: {{ template "helm.fullname" . }}
           routes:
             - primary
     steps:
@@ -41,11 +41,11 @@ strategy:
   {{- if .Values.rollout.analysis.enabled }}
 analysis:
   templates:
-    - templateName: {{ template "fullname" . }}
+    - templateName: {{ template "helm.fullname" . }}
   startingStep: 2
   args:
     - name: service-name
-      value: "{{ template "fullname" . }}-canary.{{ .Release.Namespace }}.svc.cluster.local"
+      value: "{{ template "helm.fullname" . }}-canary.{{ .Release.Namespace }}.svc.cluster.local"
   {{- end }}
 
   {{- if .Values.rollout.analysis.enabled }}
@@ -54,7 +54,7 @@ analysis:
 apiVersion: argoproj.io/v1alpha1
 kind: AnalysisTemplate
 metadata:
-  name: {{ template "fullname" . }}
+  name: {{ template "helm.fullname" . }}
 spec:
   args:
     - name: service-name
@@ -107,7 +107,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "fullname" . }}-canary
+  name: {{ template "helm.fullname" . }}-canary
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
@@ -118,5 +118,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: {{ template "fullname" . }}
+    app: {{ template "helm.fullname" . }}
   {{- end }}
