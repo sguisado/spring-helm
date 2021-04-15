@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: spring-helm
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    path: helm
+    repoURL: https://github.com/sguisado/spring-helm
+    targetRevision: HEAD
+    helm:
+      values: |
+        image:
+          tag: "{{.IMAGE_TAG}}"
+        ingress:
+          enabled: false
+          host: spring-helm.35.197.205.55.xip.io
+        istio:
+          enabled: true
+        hpa: true
+        rollout:
+          enabled: true
+      version: v3
+  destination:
+    namespace: production
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+  ignoreDifferences:
+    - group: networking.istio.io
+      kind: VirtualService
+      jsonPointers:
+        - /spec/http

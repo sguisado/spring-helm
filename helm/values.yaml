@@ -87,3 +87,17 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+istio:
+  enabled: false
+rollout:
+  enabled: false
+  steps:
+    - setWeight: 10
+    - pause: {duration: 2m}
+    - setWeight: 30
+    - pause: {duration: 30s}
+    - setWeight: 50
+    - pause: {duration: 30s}
+  analysis:
+    enabled: true
