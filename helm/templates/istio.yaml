@@ -9,9 +9,9 @@ metadata:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
   gateways:
-    - {{ template "helm.fullname" . }}
+  - {{ template "helm.fullname" . }}
   hosts:
-    - {{ template "helm.fullname" . }}.local
+  - {{ template "helm.fullname" . }}.local
   - {{ .Values.ingress.host }}
   http:
     - name: primary
@@ -19,12 +19,12 @@ spec:
         - destination:
             host: {{ template "helm.fullname" . }}
             port:
-              number: 80
+              number: 8080
           weight: 100
         - destination:
             host: {{ template "helm.fullname" . }}-canary
             port:
-              number: 80
+              number: 8080
           weight: 0
 
 ---
@@ -37,10 +37,10 @@ spec:
   selector:
     istio: ingressgateway # use istio default controller
   servers:
-    - port:
-        number: 80
-        name: http
-        protocol: HTTP
-      hosts:
-        - "*"
+  - port:
+      number: 8080
+      name: http
+      protocol: HTTP
+    hosts:
+      - "*"
   {{- end }}
