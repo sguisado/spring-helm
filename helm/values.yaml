@@ -4,6 +4,8 @@
 
 replicaCount: 1
 
+hpa: false
+
 image:
   repository: sguisado/spring-helm
   pullPolicy: IfNotPresent
