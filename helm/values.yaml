@@ -101,5 +101,7 @@ rollout:
     - pause: {duration: 30s}
     - setWeight: 50
     - pause: {duration: 30s}
+    - setWeight: 100
+    - pause: { duration: 30s }
   analysis:
     enabled: true
