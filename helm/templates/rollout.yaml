@@ -60,7 +60,7 @@ spec:
   - name: service-name
   metrics:
   - name: success-rate
-    interval: 30s
+    interval: 10s
     successCondition: result[0] >= 0.8
     failureCondition: result[0] < 0.8
     failureLimit: 3
@@ -81,7 +81,7 @@ spec:
             }[2m]
           ))
   - name: avg-req-duration
-    interval: 30s
+    interval: 10s
     successCondition: result[0] <= 1000
     failureCondition: result[0] > 1000
     failureLimit: 3
@@ -113,7 +113,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 80
+  - port: 8080
     targetPort: 8080
     protocol: TCP
     name: http
