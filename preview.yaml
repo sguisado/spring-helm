@@ -16,7 +16,7 @@ spec:
         image:
           tag: "{{.IMAGE_TAG}}"
         ingress:
-          host: "{{.HOSTNAME}}"
+          host: {{.APP_ID}}.35.197.205.55.xip.io
       version: v3
   destination:
     namespace: "{{.APP_ID}}"
