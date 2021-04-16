@@ -16,7 +16,14 @@ spec:
         image:
           tag: "{{.IMAGE_TAG}}"
         ingress:
-          host: "{{.HOSTNAME}}"
+          hosts:
+            - host: {{.APP_ID}}.35.197.195.146.xip.io
+              paths:
+              - path: /
+                backend:
+                  serviceName: srping-helm
+                  servicePort: 8080
+          host: {{.APP_ID}}.35.197.205.55.xip.io
       version: v3
   destination:
     namespace: "{{.APP_ID}}"
