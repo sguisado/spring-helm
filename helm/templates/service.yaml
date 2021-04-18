@@ -6,9 +6,9 @@ metadata:
     kubernetes.io/ingress.class: nginx
   labels:
   {{- if .Values.istio.enabled -}}
-    {{- include "helm.labels" . | nindent 4 }}
-  {{- else -}}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+  {{- else -}}
+    {{- include "helm.labels" . | nindent 4 }}
   {{- end }}
 spec:
   type: {{ .Values.service.type }}
@@ -19,8 +19,8 @@ spec:
       name: http
   selector:
   {{- if .Values.istio.enabled -}}
-    {{- include "helm.selectorLabels" . | nindent 4 }}
-  {{- else -}}
     app: {{ template "helm.fullname" . }}
+  {{- else -}}
+    {{- include "helm.selectorLabels" . | nindent 4 }}
   {{- end }}
 
