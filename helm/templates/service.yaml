@@ -5,8 +5,11 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
   labels:
+    {{- if .Values.istio.enabled }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-
+    {{- else }}
+    {{- include "helm.labels" . | nindent 4 }}
+    {{- end }}
 spec:
   type: {{ .Values.service.type }}
   ports:
