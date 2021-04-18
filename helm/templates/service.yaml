@@ -5,11 +5,11 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
   labels:
-    {{- if .Values.istio.enabled -}}
+  {{- if .Values.istio.enabled -}}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-    { { - else - } }
+  {{- else -}}
     {{- include "helm.labels" . | nindent 4 }}
-    {{- end }}
+  {{- end }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -18,8 +18,9 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- if .Values.istio.enabled -}}
+  {{- if .Values.istio.enabled -}}
     app: {{ template "helm.fullname" . }}
-    { { - else - } }
+  {{- else -}}
     {{- include "helm.selectorLabels" . | nindent 4 }}
-    {{- end }}
+  {{- end }}
+
