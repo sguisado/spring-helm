@@ -8,7 +8,7 @@ metadata:
   {{- if .Values.istio.enabled -}}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
   {{- else -}}
-    {{- include "helm.labels" . | nindent 4 }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
   {{- end }}
 spec:
   type: {{ .Values.service.type }}
@@ -21,6 +21,6 @@ spec:
   {{- if .Values.istio.enabled -}}
     app: {{ template "helm.fullname" . }}
   {{- else -}}
-    {{- include "helm.selectorLabels" . | nindent 4 }}
+    app: {{ template "helm.fullname" . }}
   {{- end }}
 
