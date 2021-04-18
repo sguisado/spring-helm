@@ -10,7 +10,7 @@ spec:
   source:
     path: helm
     repoURL: https://github.com/sguisado/spring-helm
-    targetRevision: {{.BRANCH_NAME}}
+    targetRevision: "{{.BRANCH_NAME}}"
     helm:
       values: |
         image:
