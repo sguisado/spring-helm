@@ -18,9 +18,6 @@ spec:
       protocol: TCP
       name: http
   selector:
-  {{- if .Values.istio.enabled -}}
     app: {{ template "helm.fullname" . }}
-  {{- else -}}
-    app: {{ template "helm.fullname" . }}
-  {{- end }}
+
 
