@@ -22,3 +22,4 @@ spec:
     app: {{ template "helm.fullname" . }}
     { { - else - } }
     {{- include "helm.selectorLabels" . | nindent 4 }}
+    {{- end }}
