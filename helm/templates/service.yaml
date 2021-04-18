@@ -18,4 +18,7 @@ spec:
       protocol: TCP
       name: http
   selector:
+    {{- if .Values.istio.enabled -}}
     app: {{ template "helm.fullname" . }}
+    { { - else - } }
+    {{- include "helm.selectorLabels" . | nindent 4 }}
