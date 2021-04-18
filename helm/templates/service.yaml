@@ -21,6 +21,6 @@ spec:
     {{- if .Values.istio.enabled }}
     app: {{ template "helm.fullname" . }}
     {{- else }}
-    {{- include "helm.selectorLabels" . | nindent 4 }}
+    app: {{ template "helm.fullname" . }}
     {{- end }}
 
